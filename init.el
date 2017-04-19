@@ -27,7 +27,6 @@
 (el-get-bundle dockerfile-mode)
 (el-get-bundle json-mode)
 (el-get-bundle lua-mode)
-(el-get-bundle csv-mode)
 (show-paren-mode)
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
 
