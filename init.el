@@ -37,6 +37,7 @@
 (add-hook 'after-save-hook 'backup-each-save)
 (setq backup-each-save-mirror-location "~/.emacs.backups")
 (setq make-backup-files nil)
+(setq backup-each-save-remote-files t)
 
 ;; better file management
 (el-get-bundle nav)
