@@ -27,8 +27,23 @@
 (el-get-bundle dockerfile-mode)
 (el-get-bundle json-mode)
 (el-get-bundle lua-mode)
+(el-get-bundle markdown-mode)
+(setq markdown-command "/usr/bin/pandoc")
 (show-paren-mode)
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+(add-to-list 'auto-mode-alist '(".*\\.ini$" . conf-mode))
+(add-to-list 'auto-mode-alist '(".*\\.service$" . conf-mode))
+(setq-default indent-tabs-mode nil)
+
+
+;; SSH agent
+(el-get-bundle keychain-environment)
+(require 'keychain-environment)
+
+;; fixme mode
+(el-get-bundle fic-mode)
+(require 'fic-mode)
+(add-hook 'prog-mode-hook 'fic-mode)
 
 ;; backup saves
 (el-get-bundle backup-each-save)
@@ -83,11 +98,16 @@
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 (menu-bar-mode -99)
 (tool-bar-mode -1)
-(scroll-bar-mode 0)
 (set-face-attribute 'vertical-border nil :foreground "#222222")
 (set-face-background 'fringe "#000000")
 (set-face-attribute 'default nil :height 70)
 (setq-default show-trailing-whitespace t)
+
+;; scroll-bar
+(el-get-bundle yascroll)
+(scroll-bar-mode 0)
+(global-yascroll-bar-mode 1)
+(custom-set-faces '(yascroll:thumb-fringe ((t (:background "white" :foreground "white")))))
 
 ;; highlight line number
 (el-get-bundle tom-tan/hlinum-mode)
