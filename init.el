@@ -21,6 +21,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; languages
+(el-get-bundle adoc-mode)
 (el-get-bundle apache-mode)
 (el-get-bundle crontab-mode)
 (el-get-bundle debian-changelog-mode)
@@ -34,7 +35,7 @@
 (add-to-list 'auto-mode-alist '(".*\\.ini$" . conf-mode))
 (add-to-list 'auto-mode-alist '(".*\\.service$" . conf-mode))
 (setq-default indent-tabs-mode nil)
-
+(add-to-list 'auto-mode-alist '("/home/hybris/dev/bearstech/bearstech/infra/service/dns/master/zones/" . dns-mode))
 
 ;; SSH agent
 (el-get-bundle keychain-environment)
@@ -54,11 +55,17 @@
 (setq backup-each-save-remote-files t)
 
 ;; better file management
-(el-get-bundle nav)
-(require 'nav)
-(setq nav-filtered-p nil)
-(nav-disable-overeager-window-splitting)
-(global-set-key "\C-o" 'nav-toggle)
+(el-get-bundle neotree)
+(el-get-bundle all-the-icons)
+(require 'all-the-icons)
+(setq neo-theme 'icons)
+(setq neo-show-hidden-files t)
+(defun neotree-hide-line-numbers (_unused)
+  (linum-mode -1))
+(add-hook 'neo-after-create-hook 'neotree-hide-line-numbers)
+(add-hook 'neo-enter-hook
+          (lambda (type) (if (equal type 'file) (neotree-hide))))
+(global-set-key "\C-o" 'neotree-toggle)
 
 ;; shortkeys to switch between windows
 (el-get-bundle windcycle)
@@ -126,3 +133,16 @@
 
 ;; never kill emacs
 (global-set-key "\C-x\C-c" 'kill-this-buffer)
+
+;;
+(el-get-bundle sublimity)
+(require 'sublimity)
+(require 'sublimity-scroll)
+(sublimity-mode 1)
+(el-get-bundle 'minimap)
+(setq minimap-window-location 'right)
+(custom-set-faces '(minimap-active-region-background
+                    ((((background dark)) (:background "#111111"))
+                     (t (:background "#000000")))
+                    :group 'minimap))
+(minimap-mode)
