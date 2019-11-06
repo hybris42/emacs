@@ -3,6 +3,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; install (if needed) and load
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
@@ -28,6 +35,7 @@
 (el-get-bundle dockerfile-mode)
 (el-get-bundle json-mode)
 (el-get-bundle lua-mode)
+(el-get-bundle yaml-mode)
 (el-get-bundle markdown-mode)
 (setq markdown-command "/usr/bin/pandoc")
 (show-paren-mode)
@@ -40,6 +48,7 @@
 ;; SSH agent
 (el-get-bundle keychain-environment)
 (require 'keychain-environment)
+(setq tramp-default-method "ssh")
 
 ;; fixme mode
 (el-get-bundle fic-mode)
@@ -63,8 +72,6 @@
 (defun neotree-hide-line-numbers (_unused)
   (linum-mode -1))
 (add-hook 'neo-after-create-hook 'neotree-hide-line-numbers)
-(add-hook 'neo-enter-hook
-          (lambda (type) (if (equal type 'file) (neotree-hide))))
 (global-set-key "\C-o" 'neotree-toggle)
 
 ;; shortkeys to switch between windows
@@ -75,11 +82,6 @@
 (autoload 'find-file-in-project "find-file-in-project" nil t)
 (global-set-key "\C-xf" 'find-file-in-project)
 (global-set-key "\C-xd" 'find-file-in-current-directory)
-
-;; edit text from chrome
-(el-get-bundle edit-server)
-(setq edit-server-host "127.0.0.1")
-(edit-server-start)
 
 ;; ido everywhere
 (el-get-bundle ido-ubiquitous)
@@ -107,14 +109,21 @@
 (tool-bar-mode -1)
 (set-face-attribute 'vertical-border nil :foreground "#222222")
 (set-face-background 'fringe "#000000")
-(set-face-attribute 'default nil :height 70)
+(set-face-attribute 'default nil :height 100)
 (setq-default show-trailing-whitespace t)
+(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 
 ;; scroll-bar
 (el-get-bundle yascroll)
 (scroll-bar-mode 0)
 (global-yascroll-bar-mode 1)
-(custom-set-faces '(yascroll:thumb-fringe ((t (:background "white" :foreground "white")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(yascroll:thumb-fringe ((t (:background "white" :foreground "white")))))
 
 ;; highlight line number
 (el-get-bundle tom-tan/hlinum-mode)
@@ -133,16 +142,9 @@
 
 ;; never kill emacs
 (global-set-key "\C-x\C-c" 'kill-this-buffer)
-
-;;
-(el-get-bundle sublimity)
-(require 'sublimity)
-(require 'sublimity-scroll)
-(sublimity-mode 1)
-(el-get-bundle 'minimap)
-(setq minimap-window-location 'right)
-(custom-set-faces '(minimap-active-region-background
-                    ((((background dark)) (:background "#111111"))
-                     (t (:background "#000000")))
-                    :group 'minimap))
-(minimap-mode)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (notmuch minimap))))
