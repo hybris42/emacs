@@ -72,7 +72,8 @@
 (defun neotree-hide-line-numbers (_unused)
   (linum-mode -1))
 (add-hook 'neo-after-create-hook 'neotree-hide-line-numbers)
-(global-set-key "\C-o" 'neotree-toggle)
+(setq neo-autorefresh nil)
+(global-set-key "\C-o" 'neotree-refresh)
 
 ;; shortkeys to switch between windows
 (el-get-bundle windcycle)
